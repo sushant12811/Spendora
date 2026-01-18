@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0213C0EE2F1D7BB100C28643 /* SpendoraApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0213C0ED2F1D7BB100C28643 /* SpendoraApp.swift */; };
+		0213C0F52F1D7F8600C28643 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0213C0F32F1D7F8600C28643 /* Extension.swift */; };
 		0294541C2F15EB3800074252 /* ExpenseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029454112F15EB3800074252 /* ExpenseModel.swift */; };
 		0294541D2F15EB3800074252 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029454152F15EB3800074252 /* ContentView.swift */; };
 		0294541E2F15EB3800074252 /* ExpenseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029454162F15EB3800074252 /* ExpenseView.swift */; };
@@ -18,6 +19,7 @@
 
 /* Begin PBXFileReference section */
 		0213C0ED2F1D7BB100C28643 /* SpendoraApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpendoraApp.swift; sourceTree = "<group>"; };
+		0213C0F32F1D7F8600C28643 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		029454112F15EB3800074252 /* ExpenseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseModel.swift; sourceTree = "<group>"; };
 		029454132F15EB3800074252 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		029454152F15EB3800074252 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -26,14 +28,6 @@
 		029454222F15EBBF00074252 /* ExpenseRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseRowView.swift; sourceTree = "<group>"; };
 		029E05242EA308D7007B5B71 /* Spendora.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Spendora.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
-
-/* Begin PBXFileSystemSynchronizedRootGroup section */
-		0213C0C72F1C412E00C28643 /* Extension */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = Extension;
-			sourceTree = "<group>";
-		};
-/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		029E05212EA308D7007B5B71 /* Frameworks */ = {
@@ -46,6 +40,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0213C0F42F1D7F8600C28643 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				0213C0F32F1D7F8600C28643 /* Extension.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
 		029454122F15EB3800074252 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -72,23 +74,23 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		0294541A2F15EB3800074252 /* ExpenseFlow */ = {
+		0294541A2F15EB3800074252 /* Spendora */ = {
 			isa = PBXGroup;
 			children = (
-				0213C0C72F1C412E00C28643 /* Extension */,
+				0213C0F42F1D7F8600C28643 /* Extension */,
 				029454122F15EB3800074252 /* Model */,
 				029454172F15EB3800074252 /* View */,
 				029454142F15EB3800074252 /* Preview Content */,
 				029454182F15EB3800074252 /* Assets.xcassets */,
 				0213C0ED2F1D7BB100C28643 /* SpendoraApp.swift */,
 			);
-			path = ExpenseFlow;
+			path = Spendora;
 			sourceTree = "<group>";
 		};
 		029E051B2EA308D7007B5B71 = {
 			isa = PBXGroup;
 			children = (
-				0294541A2F15EB3800074252 /* ExpenseFlow */,
+				0294541A2F15EB3800074252 /* Spendora */,
 				029E05252EA308D7007B5B71 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -115,9 +117,6 @@
 			buildRules = (
 			);
 			dependencies = (
-			);
-			fileSystemSynchronizedGroups = (
-				0213C0C72F1C412E00C28643 /* Extension */,
 			);
 			name = Spendora;
 			packageProductDependencies = (
@@ -180,6 +179,7 @@
 				0294541C2F15EB3800074252 /* ExpenseModel.swift in Sources */,
 				0294541D2F15EB3800074252 /* ContentView.swift in Sources */,
 				0294541E2F15EB3800074252 /* ExpenseView.swift in Sources */,
+				0213C0F52F1D7F8600C28643 /* Extension.swift in Sources */,
 				029454232F15EBBF00074252 /* ExpenseRowView.swift in Sources */,
 				0213C0EE2F1D7BB100C28643 /* SpendoraApp.swift in Sources */,
 			);
