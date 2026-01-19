@@ -1,4 +1,4 @@
-# Spendora - App for expense tracker
+<img width="1242" height="2688" alt="6" src="https://github.com/user-attachments/assets/82d9edb6-eec3-4d52-89e1-83cb1e06454a" /><img width="1242" height="2688" alt="3" src="https://github.com/user-attachments/assets/ff2d8ab3-5a7a-40e5-b694-322494b2fe5d" /># Spendora - App for expense tracker
 
 ## Description
  Spendora app works as a tracker for the user who is interested in tracking down their money spend every days, weeks or months and years.
@@ -21,10 +21,14 @@
  ## ScreenShots
  <table>
  <tr>
-  <td><img width="300" height="600" alt="1" src="https://github.com/user-attachments/assets/3003ec29-674a-465a-b2ec-2ade00301a98"  /></td>
-  <td><img width="300" height="600" alt= "2" src="https://github.com/user-attachments/assets/eda4b347-e5f8-4e50-83e9-18fbdcf0f4a7" /></td>
- <td><img width="300" height="600" alt="3" src="https://github.com/user-attachments/assets/f8536cf8-acd4-4477-b00b-bd1b08f24716" /></td>
-  <td><img width="300" height="600" alt="4" src="https://github.com/user-attachments/assets/0c92a918-2533-4de5-884f-46be46affcbd" /></td>
+  <td><img width="1242" height="2688" alt="1" src="https://github.com/user-attachments/assets/2b0c02b6-19d9-4638-b8f3-23ad60bebdcd" />
+</td>
+  <td><img width="1242" height="2688" alt="2" src="https://github.com/user-attachments/assets/74e16ab6-a2d4-4f09-9234-790ed4df347d" />
+</td>
+ <td><img width="1242" height="2688" alt="3" src="https://github.com/user-attachments/assets/3ffc1082-cd06-4503-8a85-9cb8a5cec62d" />
+</td>
+  <td> <img width="1242" height="2688" alt="6" src="https://github.com/user-attachments/assets/d2574b6d-32fd-4d87-99cb-452a1a7f5dd9" />
+</td>
  </tr>
  </table>
 
