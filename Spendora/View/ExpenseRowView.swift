@@ -10,6 +10,8 @@ import SwiftUI
 struct ExpenseRowView: View {
     let expense : ExpenseModel
     let currencySymbol : String
+    let onTapDelete : (ExpenseModel) -> Void
+    
     
     var body: some View {
             HStack(spacing: 12) {
@@ -36,9 +38,17 @@ struct ExpenseRowView: View {
                     .font(.headline)
                     .foregroundStyle(expense.category.color)
             }
+            .contextMenu{
+                Button("Delete", role: .destructive) {
+                    onTapDelete(expense)
+                }
+                
+               
+            }
+            
     }
 }
 
 #Preview {
-    ExpenseRowView(expense: .sampleData[0], currencySymbol: "")
+    ExpenseRowView(expense: .sampleData[0], currencySymbol: "", onTapDelete: { _ in })
 }

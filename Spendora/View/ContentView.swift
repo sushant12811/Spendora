@@ -13,6 +13,7 @@ struct ContentView: View {
     @Query(sort: \ExpenseModel.date, order: .reverse) private var expense:
         [ExpenseModel]
     @Environment(\.colorScheme) private var colorScheme
+    
 
     @State private var selectedFilter: FilteredOption = .all
     @State private var selectedCategory: CategoryFiltered = .all
@@ -22,6 +23,8 @@ struct ContentView: View {
     @State private var selectCheckMark: Bool = false
     @AppStorage("infoHint") private var firstTimeInfoHint: Bool = true
     @AppStorage("currency_unit") private var selectedCurrency: CurrencyUnit = .CAD
+    @State private var searchQuery: String = ""
+  
 
     enum FilteredOption: String, CaseIterable {
         case all = "All"
@@ -61,12 +64,23 @@ struct ContentView: View {
             }
         }()
         
-        switch selectedCategory {
-        case .all:
-            return filterdByDate
+        let filteredByCategory:[ExpenseModel] = {
+            switch selectedCategory {
+            case .all:
+                return filterdByDate
+                
+            case .category(let category):
+                return filterdByDate.filter { $0.category == category }
+            }
+        }()
+        
+        
+        guard !searchQuery.isEmpty else { return filteredByCategory }
+        
+        return filteredByCategory.filter{
+            $0.title.localizedCaseInsensitiveContains(searchQuery) || $0.category.rawValue.localizedCaseInsensitiveContains(searchQuery)
             
-        case .category(let category):
-            return filterdByDate.filter { $0.category == category }
+            
         }
     }
 
@@ -75,6 +89,7 @@ struct ContentView: View {
     }
 
     var body: some View {
+        
         NavigationStack {
             ZStack(alignment: .bottom) {
 
@@ -88,13 +103,13 @@ struct ContentView: View {
                             ExpenseView()
                         }
                     }
-                    .alert("Delete All?", isPresented: $showAlert) {
+                    .alert(filteredExpenses.count > 1 ? "DeleteAll" : "Delete?", isPresented: $showAlert) {
                         Button("Delete", role: .destructive) {
-                            deleteAllExpenses(expense: expense)
+                            deleteALL()
                         }
 
                     } message: {
-                        Text("Are you sure want to delete all?")
+                        Text(filteredExpenses.count < 1 ? "Are you sure want to delete it?" : "Are you sure want to delete all expenses?")
                     }
                     .toolbar {
                         ToolbarItem(placement: .topBarTrailing) {
@@ -115,6 +130,9 @@ struct ContentView: View {
                                         }
                                     }
                                 }
+                                
+                               
+                                
                             }
                         }
                     }
@@ -122,7 +140,8 @@ struct ContentView: View {
                 VStack(spacing: 20){
                     if firstTimeInfoHint{
                         Text("Add your first expense by tapping \"+\" below")
-                            .padding()
+                            .font(.caption)
+                            .padding(10)
                             .background(.gray.opacity(0.3))
                             .clipShape(RoundedRectangle(cornerRadius: 15))
                             .pulseEffect()
@@ -144,7 +163,7 @@ struct ContentView: View {
                                     .shadow(color: .black.opacity(0.5), radius: 0.2)
                             )
                     }
-                }
+                }.padding()
 
             }
 
@@ -178,18 +197,16 @@ struct ContentView: View {
                     Button {
                         showAlert = true
                     } label: {
-                        Text("Clear All")
-                            .foregroundStyle(
-                                filteredExpenses.isEmpty
-                                    ? .clear : .red.opacity(0.7)
-                            )
-                            .font(.caption.bold())
-                            .padding(8)
-                            .background(
-                                filteredExpenses.isEmpty
-                                    ? .clear : .red.opacity(0.2)
-                            )
-                            .clipShape(RoundedRectangle(cornerRadius: 12))
+                        if !filteredExpenses.isEmpty {
+                            Text(filteredExpenses.count > 1 ? "Delete All" :"Delete")
+                                .foregroundStyle(.red.opacity(0.7))
+                                .font(.caption2)
+                                .padding(8)
+                                .background(.red.opacity(0.2))
+                                .clipShape(Capsule())
+                            
+                        }
+                       
                     }
                     .disabled(filteredExpenses.isEmpty)
                 }
@@ -199,19 +216,36 @@ struct ContentView: View {
             .background(Color(.systemGroupedBackground))
 
             // MARK: List of expenses
-            if filteredExpenses.isEmpty {
+            if expense.isEmpty {
                 expenseListEmpty()
             } else {
                 List {
-                    ForEach(filteredExpenses) { expense in
-                        NavigationLink(value: expense) {
-                            ExpenseRowView(expense: expense, currencySymbol: selectedCurrency.currSymbol)
+                    if filteredExpenses.isEmpty {
+                        HStack{
+                            Spacer()
+                            Text("Sorry, no results.")
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                            Spacer()
                         }
+                    }else{
+                        
+                        ForEach(filteredExpenses) { expense in
+                            NavigationLink(value: expense) {
+                                ExpenseRowView(expense: expense, currencySymbol: selectedCurrency.currSymbol){ expenseToDelete in
+                                    deleteSelectedItem(expense: expenseToDelete)
+                                }
+                            }
+                        }
+                        .onDelete { index in
+                            deleteIndividual(offsets: index)
+                        }
+                        
                     }
-                    .onDelete { index in
-                        deleteExpense(offsets: index)
-                    }
+
                 }
+                .searchable(text: $searchQuery, placement: .navigationBarDrawer, prompt: "Search for an Expense...")
+
             }
         }
     }
@@ -227,25 +261,28 @@ struct ContentView: View {
         .font(.subheadline)
         .foregroundStyle(.secondary)
         .frame(maxHeight: .infinity)
+        .padding(.bottom,10)
     }
 
     //MARK: Delete Individual
-    private func deleteExpense(offsets: IndexSet) {
+    private func deleteIndividual(offsets: IndexSet) {
         for index in offsets {
             let expense = filteredExpenses[index]
             modelContext.delete(expense)
         }
         try? modelContext.save()
-
+    }
+    
+    func deleteSelectedItem(expense: ExpenseModel) {
+        modelContext.delete(expense)
     }
 
     //MARK: Delete ALL
-    private func deleteAllExpenses(expense: [ExpenseModel]) {
-        for filteredExpense in filteredExpenses {
-            modelContext.delete(filteredExpense)
-        }
-        try? modelContext.save()
-
+    private func deleteALL() {
+    for expense in filteredExpenses {
+                modelContext.delete(expense)
+            }
+            try? modelContext.save()
     }
 }
 
